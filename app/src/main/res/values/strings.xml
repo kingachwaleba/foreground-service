@@ -17,4 +17,24 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <!-- Main activity -->
+    <string name="info_state"> Service state: </string>
+    <string name="info_service_running">Service IS running…</string>
+    <string name="info_service_not_running">Service is NOT running…</string>
+    <string name="info_states"> Service action: </string>
+    <string name="button_start">Start</string>
+    <string name="button_restart">Restart</string>
+    <string name="button_stop">Stop</string>
+
+    <!-- Foreground service -->
+    <string name ="ser_title">FoSer!</string>
+    <string name="ser_initial_info"> Service is just running…</string>
+
+    <!-- Settings Activity Title -->
+    <string name="label_settings">Settings</string>
+
+    <!-- Main menu -->
+    <string name="titleSettings">Settings</string>
+    <string name="titleExit">Exit</string>
 </resources>
