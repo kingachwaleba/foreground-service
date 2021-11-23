@@ -28,7 +28,7 @@
     <string name="button_stop">Stop</string>
 
     <!-- Foreground service -->
-    <string name ="ser_title">FoSer!</string>
+    <string name="ser_title">FoSer!</string>
     <string name="ser_initial_info"> Service is just running…</string>
 
     <!-- Settings Activity Title -->
