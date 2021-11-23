@@ -9,11 +9,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MyForegroundService extends Service {
 
@@ -33,6 +37,27 @@ public class MyForegroundService extends Service {
     private Context context;
     private Intent notificationIntent;
     private PendingIntent pendingIntent;
+    private int counter;
+    private Timer timer;
+    private TimerTask timerTask;
+    final Handler handler = new Handler();
+
+    final Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            Notification notification = new Notification.Builder(context, CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_my_icon)
+                    .setContentTitle(getString(R.string.ser_title))
+                    .setShowWhen(showTime)
+                    .setContentText(message + " " + counter)
+                    .setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.circle))
+                    .setContentIntent(pendingIntent)
+                    .build();
+
+            NotificationManager manager = getSystemService(NotificationManager.class);
+            manager.notify(1, notification);
+        }
+    };
 
     @Override
     public void onCreate() {
@@ -42,10 +67,25 @@ public class MyForegroundService extends Service {
         notificationIntent = new Intent(context, MainActivity.class);
         pendingIntent =
                 PendingIntent.getActivity(this, 0, notificationIntent, 0);
+
+        counter = 0;
+        timer = new Timer();
+
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                counter++;
+                handler.post(runnable);
+            }
+        };
     }
 
     @Override
     public void onDestroy() {
+        handler.removeCallbacks(runnable);
+        timer.cancel();
+        timer.purge();
+        timer = null;
         super.onDestroy();
     }
 
@@ -67,10 +107,9 @@ public class MyForegroundService extends Service {
 
         createNotificationChannel();
 
-        Intent notificationIntent = new Intent(this,MainActivity.class);
-        PendingIntent pendingIntent =
-                PendingIntent.getActivity(this,0,notificationIntent,0);
-
+//        Intent notificationIntent = new Intent(this,MainActivity.class);
+//        PendingIntent pendingIntent =
+//                PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         Notification notification = new Notification.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_my_icon)
@@ -89,12 +128,9 @@ public class MyForegroundService extends Service {
     }
 
     private void doWork() {
-        String info = "Start working..."
-                +"\n show_time=" + showTime.toString()
-                +"\n do_work=" + doWork.toString()
-                +"\n double_speed=" + doubleSpeed.toString();
-
-        Toast.makeText(this, info, Toast.LENGTH_LONG).show();
+        if(doWork) {
+            timer.schedule(timerTask, 0L, doubleSpeed ? period / 2L : period);
+        }
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
