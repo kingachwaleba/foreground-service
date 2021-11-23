@@ -2,8 +2,10 @@ package com.example.foregroundservice;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -21,6 +23,11 @@ public class MainActivity extends AppCompatActivity {
     private TextView textInfoService;
     private TextView textInfoSettings;
 
+    private String message;
+    private Boolean showTime;
+    private Boolean work;
+    private Boolean workDouble;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
         buttonStart.setOnClickListener(this::clickStart);
         buttonStop.setOnClickListener(this::clickStop);
         buttonRestart.setOnClickListener(this::clickRestart);
+
+        updateUI();
     }
 
     @Override
@@ -69,5 +78,23 @@ public class MainActivity extends AppCompatActivity {
     public void clickRestart(View view) {
         clickStop(view);
         clickStart(view);
+    }
+
+    private String getPreferences() {
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        message = sharedPreferences.getString("message","ForegroundService");
+        showTime = sharedPreferences.getBoolean("show_time", true);
+        work = sharedPreferences.getBoolean("sync",true);
+        workDouble = sharedPreferences.getBoolean("double", false);
+
+        return "Message: " + message + "\n"
+                +"show_time: " + showTime.toString() +"\n"
+                +"work: " + work.toString() + "\n"
+                +"double: " + workDouble.toString();
+    }
+
+    private void updateUI() {
+        textInfoSettings.setText(getPreferences());
     }
 }
