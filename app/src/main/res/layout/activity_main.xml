@@ -44,10 +44,10 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/button_start"
+        app:layout_constraintEnd_toStartOf="@+id/buttonStop"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/label2"
-        app:layout_constraintEnd_toStartOf="@+id/buttonStop" />
+        app:layout_constraintTop_toBottomOf="@+id/label2" />
 
     <Button
         android:id="@+id/buttonStop"
@@ -71,5 +71,26 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/buttonStop" />
+
+    <TextView
+        android:id="@+id/label3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:text="@string/service_settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonStart" />
+
+    <TextView
+        android:id="@+id/textInfoSettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/label_settings"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/label3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

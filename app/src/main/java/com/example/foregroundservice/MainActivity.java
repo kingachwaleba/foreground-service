@@ -9,18 +9,29 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
+    private Button buttonStart;
+    private Button buttonStop;
+    private Button buttonRestart;
+
+    private TextView textInfoService;
+    private TextView textInfoSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button buttonStart = findViewById(R.id.buttonStart);
-        Button buttonStop = findViewById(R.id.buttonStop);
-        Button buttonRestart = findViewById(R.id.buttonRestart);
+        buttonStart = findViewById(R.id.buttonStart);
+        buttonStop = findViewById(R.id.buttonStop);
+        buttonRestart = findViewById(R.id.buttonRestart);
+
+        textInfoService = findViewById(R.id.textInfoServiceState);
+        textInfoSettings = findViewById(R.id.textInfoSettings);
 
         buttonStart.setOnClickListener(this::clickStart);
         buttonStop.setOnClickListener(this::clickStop);
