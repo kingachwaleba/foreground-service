@@ -98,18 +98,12 @@ public class MyForegroundService extends Service {
     @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // return super.onStartCommand(intent, flags, startId);
-
         message = intent.getStringExtra(MESSAGE);
         showTime = intent.getBooleanExtra(TIME,false);
         doWork = intent.getBooleanExtra(WORK,false);
         doubleSpeed = intent.getBooleanExtra(WORK_DOUBLE,false);
 
         createNotificationChannel();
-
-//        Intent notificationIntent = new Intent(this,MainActivity.class);
-//        PendingIntent pendingIntent =
-//                PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
         Notification notification = new Notification.Builder(this,CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_my_icon)
